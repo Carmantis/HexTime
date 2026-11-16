@@ -1,0 +1,69 @@
+# The whole server on one machine: HexTime, PostgreSQL and Caddy.
+#
+# For trying the server build out and for development. Production servers
+# run the same three containers as Quadlet units (deploy/quadlet/), set up by
+# the installation script.
+#
+#   cp deploy/.env.example deploy/.env      # then edit it
+#   podman compose -f deploy/compose.yaml up --build
+#
+# Works with Docker too (docker compose ...). Settings come from deploy/.env.
+
+name: hextime
+
+services:
+  postgres:
+    image: docker.io/library/postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: hextime
+      POSTGRES_DB: hextime
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in deploy/.env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hextime -d hextime"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  hextime:
+    build:
+      context: ..
+      dockerfile: deploy/Containerfile
+    image: localhost/hextime:latest
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://hextime:${POSTGRES_PASSWORD}@postgres:5432/hextime
+      PUBLIC_BASE_URL: https://${HEXTIME_DOMAIN:?set HEXTIME_DOMAIN in deploy/.env}${HTTPS_PORT_SUFFIX:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/config', timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+    # Not published: only Caddy talks to it.
+
+  caddy:
+    image: docker.io/library/caddy:2
+    restart: unless-stopped
+    environment:
+      HEXTIME_DOMAIN: ${HEXTIME_DOMAIN}
+    ports:
+      - "${HTTP_PORT:-80}:80"
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,Z
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - hextime
+
+volumes:
+  postgres-data:
+  caddy-data:
+  caddy-config:

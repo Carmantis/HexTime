@@ -1,0 +1,73 @@
+{
+  "pdf": {
+    "periodTitle": "Työaikaraportti",
+    "projectTitle": "Projektiraportti",
+    "period": "Aikaväli",
+    "person": "Henkilö",
+    "client": "Asiakas",
+    "hourlyRate": "Tuntihinta",
+    "perHour": "{amount}/t",
+    "generated": "Luotu",
+    "summary": "Yhteenveto",
+    "totalHours": "Tunnit yhteensä",
+    "billableHours": "Laskutettavat tunnit",
+    "billableAmount": "Laskutettavaa",
+    "byProject": "Tunnit projekteittain",
+    "byTask": "Tunnit nimikkeittäin",
+    "entries": "Kirjaukset",
+    "date": "Päivä",
+    "time": "Aika",
+    "project": "Projekti",
+    "task": "Nimike",
+    "description": "Kuvaus",
+    "hours": "Tunnit",
+    "duration": "Kesto",
+    "amount": "Summa",
+    "noProject": "Ei projektia",
+    "noTask": "Ei nimikettä",
+    "noEntries": "Ei kirjauksia tällä aikavälillä.",
+    "roundingNote": "Summat on pyöristetty vasta kokonaissummasta, joten rivien summa voi poiketa siitä sentillä.",
+    "page": "Sivu {n}",
+    "teamTitle": "Tiimiraportti",
+    "team": "Tiimi",
+    "exportedBy": "Tulostanut",
+    "byMember": "Tunnit jäsenittäin",
+    "member": "Jäsen",
+    "unknownMember": "Tuntematon",
+    "membersByProject": "Jäsenet projekteittain",
+    "noTeamHours": "Tiimin projekteille ei ole kirjattu tunteja tällä aikavälillä.",
+    "teamNote": "Raportissa ovat vain tiimin projekteille kirjatut tunnit kokonaismäärinä. Yksittäiset kirjaukset näkyvät vain kirjaajalle itselleen.",
+    "ownInTeamTitle": "Omat tunnit tiimissä",
+    "ownInTeamNote": "Raportissa ovat vain omat tuntisi tiimin projekteille."
+  },
+  "email": {
+    "greeting": "Hei {name},",
+    "signature": "– HexTime",
+    "setup": {
+      "subject": "Tervetuloa HexTimeen",
+      "body": "Sinulle on luotu tunnus HexTimeen, työajan seurantaan.\n\nAseta salasanasi tästä linkistä:\n{link}\n\nLinkki on voimassa {days} päivää ja toimii kerran."
+    },
+    "signup": {
+      "subject": "HexTime: viimeistele tunnuksesi",
+      "body": "Joku, toivottavasti sinä, pyysi HexTime-tunnusta tälle osoitteelle.\n\nViimeistele tunnus valitsemalla salasana tästä linkistä:\n{link}\n\nLinkki on voimassa {days} päivää ja toimii kerran. Jos et pyytänyt tätä, voit jättää viestin huomiotta: tunnusta ei voi käyttää ilman tätä linkkiä."
+    },
+    "reset": {
+      "subject": "HexTime: uusi salasana",
+      "body": "Joku, toivottavasti sinä, pyysi uutta salasanaa HexTimeen.\n\nValitse uusi salasana tästä linkistä:\n{link}\n\nLinkki on voimassa {hours} tuntia. Jos et pyytänyt tätä, voit jättää viestin huomiotta: salasanasi ei muutu."
+    },
+    "verify": {
+      "subject": "HexTime: vahvista sähköpostiosoitteesi",
+      "body": "Vahvista osoitteesi tästä linkistä, niin voit kirjautua HexTimeen:\n{link}\n\nLinkki on voimassa {hours} tuntia."
+    },
+    "teamInvitation": {
+      "subject": "HexTime: kutsu tiimiin {team}",
+      "body": "{inviter} kutsui sinut tiimiin {team} HexTimessä.\n\nAvaa HexTime, niin sinulta kysytään, haluatko liittyä:\n{link}"
+    }
+  },
+  "desktop": {
+    "tooNewTitle": "Päivitä HexTime",
+    "tooNewBody": "Tietosi on tallennettu uudemmalla HexTimen versiolla kuin tämä. Asenna uusin versio, niin pääset jatkamaan. Tietoihisi ei ole koskettu.",
+    "startFailedTitle": "HexTime ei käynnistynyt",
+    "startFailedBody": "Tietojasi ei saatu avattua: {error}. Jos ne olivat päivittymässä, niistä otettiin ensin varmuuskopio samaan kansioon: {folder}"
+  }
+}

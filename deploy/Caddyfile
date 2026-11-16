@@ -1,0 +1,24 @@
+# Caddy in front of HexTime: HTTPS with automatic certificates, compression
+# and a few security headers. HEXTIME_DOMAIN comes from the environment.
+#
+# With HEXTIME_DOMAIN=localhost Caddy uses its own local certificate
+# authority instead of Let's Encrypt, which is how compose.yaml is tried out
+# on a laptop.
+
+{$HEXTIME_DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "same-origin"
+		# Only HexTime's own scripts and connections. Inline style attributes
+		# are allowed because Svelte and the charts set styles on elements.
+		# frame-ancestors repeats X-Frame-Options for browsers that prefer it.
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"
+		-Server
+	}
+
+	reverse_proxy hextime:8000
+}

@@ -1,0 +1,22 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- The HexStickyNote / HexCalendar family: a gradient disc, a white
+       hexagon, and the app's own symbol inside. HexTime's is a clock. -->
+  <defs>
+    <linearGradient id="disc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2f6fd0"/>
+      <stop offset="100%" stop-color="#58a6ff"/>
+    </linearGradient>
+  </defs>
+
+  <circle cx="256" cy="256" r="240" fill="url(#disc)"/>
+
+  <path d="M 256 100 L 356 175 L 356 325 L 256 400 L 156 325 L 156 175 Z"
+        fill="none" stroke="white" stroke-width="12" stroke-linejoin="round"/>
+
+  <!-- Clock face -->
+  <circle cx="256" cy="250" r="62" fill="none" stroke="white" stroke-width="12"/>
+  <!-- Hands at ten past two: short hour hand, long minute hand -->
+  <path d="M 256 250 L 256 212 M 256 250 L 286 268"
+        fill="none" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="256" cy="250" r="7" fill="white"/>
+</svg>

@@ -1,0 +1,18 @@
+# A dump of the HexTime database, run nightly by hextime-backup.timer.
+# Kept in ~/.local/share/hextime/backups; the newest 14 stay. A failed dump
+# leaves nothing behind (and a .part left by a crash goes after a day).
+[Unit]
+Description=HexTime database backup
+Requires=hextime-postgres.service
+After=hextime-postgres.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c '\
+  dir="$HOME/.local/share/hextime/backups"; mkdir -p "$dir"; chmod 700 "$dir"; \
+  file="$dir/hextime-$(date +%%Y%%m%%d-%%H%%M%%S).dump"; \
+  find "$dir" -name "hextime-*.dump.part" -mmin +1440 -delete; \
+  podman exec hextime-postgres pg_dump -U hextime -d hextime --format=custom > "$file.part" \
+    || { rm -f "$file.part"; exit 1; }; \
+  mv "$file.part" "$file" && chmod 600 "$file" \
+    && ls -1t "$dir"/hextime-*.dump | tail -n +15 | xargs -r rm --'

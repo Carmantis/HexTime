@@ -1,0 +1,71 @@
+# HexTime, server mode. Build from the repository root:
+#
+#   podman build -f deploy/Containerfile -t hextime .
+#
+# Two stages: Node compiles the UI, then a slim Python image gets the
+# backend, its locked dependencies and the compiled UI. Nothing from the
+# first stage but the built files reaches the image.
+
+# ---------------------------------------------------------------------------
+# 1. The UI
+# ---------------------------------------------------------------------------
+FROM docker.io/library/node:22-alpine AS ui
+
+WORKDIR /src/frontend
+# Dependencies first: this layer is reused until package-lock.json changes.
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+# vite.config.ts writes to ../backend/app/static.
+RUN npm run build
+
+# ---------------------------------------------------------------------------
+# 2. The application
+# ---------------------------------------------------------------------------
+FROM docker.io/library/python:3.13-slim AS app
+
+# uv from its official image, pinned to the version the lock file is made with.
+COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /usr/local/bin/uv
+
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Dependencies before the code, for the same layer reuse as above.
+# --frozen: exactly what uv.lock says, or fail. --no-dev: no test tools.
+# The "server" extra brings the PostgreSQL driver.
+COPY backend/pyproject.toml backend/uv.lock ./
+RUN uv sync --frozen --no-dev --extra server --no-install-project
+
+COPY backend/alembic.ini ./
+COPY backend/alembic ./alembic
+COPY backend/app ./app
+COPY --from=ui /src/backend/app/static ./app/static
+RUN uv sync --frozen --no-dev --extra server
+
+COPY deploy/entrypoint.sh /usr/local/bin/hextime-entrypoint
+# The service files the installation script sets up on the server; it reads
+# them from the image, so the script itself can be a single download.
+COPY deploy/Caddyfile /app/deploy/Caddyfile
+COPY deploy/quadlet /app/deploy/quadlet
+COPY deploy/systemd /app/deploy/systemd
+RUN chmod 0755 /usr/local/bin/hextime-entrypoint \
+    && useradd --uid 10001 --user-group --no-create-home --home-dir /app --shell /usr/sbin/nologin hextime
+
+# Never root at run time.
+USER hextime
+
+# The entrypoint migrates before the server starts, once, rather than the
+# app doing it on startup. (The health check lives with the units that run
+# the image, compose.yaml and the Quadlet files: Podman's default OCI image
+# format has no HEALTHCHECK.)
+ENV PATH="/app/.venv/bin:$PATH" \
+    APP_MODE=server \
+    AUTO_MIGRATE=false
+
+EXPOSE 8000
+
+ENTRYPOINT ["hextime-entrypoint"]

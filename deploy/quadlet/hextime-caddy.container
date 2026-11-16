@@ -1,0 +1,23 @@
+# Caddy: HTTPS for HexTime, with certificates from Let's Encrypt.
+[Unit]
+Description=HexTime web server (Caddy)
+Requires=hextime.service
+After=hextime.service
+
+[Container]
+Image=docker.io/library/caddy:2
+ContainerName=hextime-caddy
+Network=hextime.network
+PublishPort=80:80
+PublishPort=443:443
+PublishPort=443:443/udp
+EnvironmentFile=%h/.config/hextime/caddy.env
+Volume=%h/.config/hextime/Caddyfile:/etc/caddy/Caddyfile:ro,Z
+Volume=hextime-caddy-data.volume:/data
+Volume=hextime-caddy-config.volume:/config
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

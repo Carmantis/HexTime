@@ -1,0 +1,249 @@
+/* ---------------------------------------------------------------------------
+   HexTime theme tokens.
+
+   This file mirrors HexCalendar/src/app.css so it can be re-copied from
+   HexCalendar without translating anything. The first section is a VERBATIM
+   copy — never replace those values or rename those tokens. HexTime-only
+   additions live in the clearly marked section at the end of the file.
+
+   Default theme: HexCalendar's bare :root is the LIGHT theme. HexTime defaults
+   to dark by stamping <html data-theme="dark"> at startup, never by editing the
+   values below. Source order matters: the [data-theme] blocks come last so an
+   explicit user choice beats the prefers-color-scheme media query.
+   --------------------------------------------------------------------------- */
+
+/* ===========================================================================
+   Copied verbatim from HexCalendar/src/app.css — do not edit
+   =========================================================================== */
+
+:root {
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Typography */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+
+  /* Light mode colours */
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-hover: #f1f3f5;
+  --color-border: #dee2e6;
+  --color-border-light: #e9ecef;
+  --color-text: #212529;
+  --color-text-muted: #868e96;
+  --color-accent: #4A90D9;
+  --color-on-accent: #ffffff;
+  --color-error: #e74c3c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0d1117;
+    --color-surface: #161b22;
+    --color-surface-elevated: #21262d;
+    --color-surface-hover: #30363d;
+    --color-border: #30363d;
+    --color-border-light: #21262d;
+    --color-text: #e6edf3;
+    --color-text-muted: #8b949e;
+    --color-accent: #58a6ff;
+    --color-on-accent: #0d1117;
+    --color-error: #f85149;
+  }
+}
+
+/* Manual theme override via data-theme attribute */
+[data-theme="light"] {
+  --color-bg: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #ffffff;
+  --color-surface-hover: #f1f3f5;
+  --color-border: #dee2e6;
+  --color-border-light: #e9ecef;
+  --color-text: #212529;
+  --color-text-muted: #868e96;
+  --color-accent: #4A90D9;
+  --color-on-accent: #ffffff;
+  --color-error: #e74c3c;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0d1117;
+  --color-surface: #161b22;
+  --color-surface-elevated: #21262d;
+  --color-surface-hover: #30363d;
+  --color-border: #30363d;
+  --color-border-light: #21262d;
+  --color-text: #e6edf3;
+  --color-text-muted: #8b949e;
+  --color-accent: #58a6ff;
+  --color-on-accent: #0d1117;
+  --color-error: #f85149;
+}
+
+/* ---------------------------------------------------------------------------
+   Reset / base — copied verbatim from HexCalendar/src/app.css
+   --------------------------------------------------------------------------- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* Allow text selection inside editors */
+[contenteditable],
+input,
+textarea {
+  user-select: text;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove default button styles */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-text-muted);
+}
+
+/* ===========================================================================
+   HexTime additions — tokens HexCalendar does not have
+
+   HexCalendar only ships --color-error, because a calendar has no success or
+   warning states. HexTime needs them for billable/non-billable entries and for
+   report warnings. The light values are taken from HexCalendar's own event
+   colour swatches (EventModal.svelte); the dark values are the GitHub-dark
+   companions of HexCalendar's dark --color-error.
+
+   HexCalendar loads no webfont and sets its font stack directly on body. We
+   expose the same stack as a token and add a mono stack for the running timer,
+   which HexCalendar has no equivalent for. Do not add a webfont here — Inter is
+   used only in the ReportLab PDFs, never in the UI.
+   =========================================================================== */
+
+:root {
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas,
+    'Liberation Mono', monospace;
+
+  /* HexCalendar hardcodes this shadow in SettingsPanel; modals only. */
+  --shadow-modal: 0 8px 32px rgb(0 0 0 / 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-success: #3fb950;
+    --color-warning: #d29922;
+  }
+}
+
+[data-theme="light"] {
+  --color-success: #2ECC71;
+  --color-warning: #F39C12;
+}
+
+[data-theme="dark"] {
+  --color-success: #3fb950;
+  --color-warning: #d29922;
+}
+
+/* Native controls (the open <select> list, checkboxes, scrollbars) are drawn
+   by the browser, not by our CSS. color-scheme tells it which palette to use;
+   without it a dark-theme <select> opens a white list with our light text. */
+:root {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+/* WebKitGTK (the desktop window) ignores color-scheme for the option list,
+   so the options also get the theme colours explicitly. */
+option {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+/* Someone who asked their system for less motion gets none: every hover
+   fade and transition in the app, in one place rather than per component. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}

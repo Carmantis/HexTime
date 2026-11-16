@@ -1,0 +1,15 @@
+# Keep the build context small and free of local state and secrets.
+# Docker reads only this name; Podman reads it too when there is no
+# .containerignore, so one file serves both.
+.git
+**/node_modules
+**/.venv
+**/__pycache__
+backend/build
+backend/dist
+backend/app/static
+backend/.dev-server
+backend/.env
+backend/*.db
+deploy/.env
+packaging/output

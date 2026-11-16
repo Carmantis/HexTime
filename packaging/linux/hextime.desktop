@@ -1,0 +1,15 @@
+[Desktop Entry]
+Type=Application
+Name=HexTime
+GenericName=Time Tracking
+GenericName[fi]=Työajan seuranta
+Comment=Track working time, projects and billable hours
+Comment[fi]=Seuraa työaikaa, projekteja ja laskutettavia tunteja
+# install.sh and the .deb replace this with the installed path.
+Exec=hextime
+Icon=hextime
+Terminal=false
+Categories=Office;ProjectManagement;
+Keywords=time;tracking;timer;hours;billing;työaika;tunnit;
+# The window's GTK class, so the launcher and the open window are one item.
+StartupWMClass=hextime

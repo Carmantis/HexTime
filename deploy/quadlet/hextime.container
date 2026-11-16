@@ -1,0 +1,29 @@
+# HexTime itself. hextime-install.sh fills in the image.
+[Unit]
+Description=HexTime
+Requires=hextime-postgres.service
+After=hextime-postgres.service
+
+[Container]
+Image=@IMAGE@
+# Caddy reaches it by this name (deploy/Caddyfile: reverse_proxy hextime:8000).
+ContainerName=hextime
+Network=hextime.network
+EnvironmentFile=%h/.config/hextime/hextime.env
+HealthCmd=python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/config', timeout=4)"
+HealthInterval=30s
+HealthStartPeriod=60s
+# `podman auto-update` replaces it when a newer image is published. (Left
+# out for an image built on the server, which has no registry to check.)
+AutoUpdate=registry
+
+[Service]
+Restart=always
+# A setting that keeps it from starting is tried again only every ten
+# seconds, with the reason in the log each time (deploy/entrypoint.sh).
+RestartSec=10
+# The first start migrates the database before it answers.
+TimeoutStartSec=600
+
+[Install]
+WantedBy=default.target

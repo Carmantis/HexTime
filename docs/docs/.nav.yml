@@ -1,0 +1,8 @@
+nav:
+  - Overview: index.md
+  - Architecture: architecture.md
+  - Development and testing: Run.md
+  - Installing on a server: Install-server.md
+  - Running the server: Server-admin.md
+  - Server logs: Logs.md
+  - These pages: documentation.md

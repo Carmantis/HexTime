@@ -1,0 +1,22 @@
+# HexTime's database. Installed by hextime-install.sh into
+# ~/.config/containers/systemd/; the settings come from ~/.config/hextime/.
+[Unit]
+Description=HexTime database (PostgreSQL)
+
+[Container]
+Image=docker.io/library/postgres:17
+# app/installer.py writes DATABASE_URL with this host name.
+ContainerName=hextime-postgres
+Network=hextime.network
+Volume=hextime-postgres-data.volume:/var/lib/postgresql/data
+EnvironmentFile=%h/.config/hextime/postgres.env
+HealthCmd=pg_isready -U hextime -d hextime
+HealthInterval=10s
+HealthStartPeriod=20s
+
+[Service]
+Restart=always
+TimeoutStartSec=300
+
+[Install]
+WantedBy=default.target

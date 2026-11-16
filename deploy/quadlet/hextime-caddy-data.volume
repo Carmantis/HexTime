@@ -1,0 +1,3 @@
+# Named volume for HexTime: kept when the containers are replaced.
+[Volume]
+VolumeName=hextime-caddy-data

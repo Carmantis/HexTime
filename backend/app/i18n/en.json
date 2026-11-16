@@ -1,0 +1,73 @@
+{
+  "pdf": {
+    "periodTitle": "Time report",
+    "projectTitle": "Project report",
+    "period": "Period",
+    "person": "Person",
+    "client": "Client",
+    "hourlyRate": "Hourly rate",
+    "perHour": "{amount}/h",
+    "generated": "Generated",
+    "summary": "Summary",
+    "totalHours": "Total hours",
+    "billableHours": "Billable hours",
+    "billableAmount": "Billable",
+    "byProject": "Hours by project",
+    "byTask": "Hours by task",
+    "entries": "Entries",
+    "date": "Date",
+    "time": "Time",
+    "project": "Project",
+    "task": "Task",
+    "description": "Description",
+    "hours": "Hours",
+    "duration": "Duration",
+    "amount": "Amount",
+    "noProject": "No project",
+    "noTask": "No task",
+    "noEntries": "No entries in this period.",
+    "roundingNote": "Amounts are rounded once, on each total, so the rows can differ from the total by a cent.",
+    "page": "Page {n}",
+    "teamTitle": "Team report",
+    "team": "Team",
+    "exportedBy": "Exported by",
+    "byMember": "Hours by member",
+    "member": "Member",
+    "unknownMember": "Unknown",
+    "membersByProject": "Members by project",
+    "noTeamHours": "No hours were booked on the team's projects in this period.",
+    "teamNote": "The report has only the hours booked on the team's projects, as totals. Single entries are visible only to the person who booked them.",
+    "ownInTeamTitle": "My hours in the team",
+    "ownInTeamNote": "The report has only your own hours on the team's projects."
+  },
+  "email": {
+    "greeting": "Hi {name},",
+    "signature": "– HexTime",
+    "setup": {
+      "subject": "Welcome to HexTime",
+      "body": "An account has been created for you in HexTime, for tracking working time.\n\nSet your password here:\n{link}\n\nThe link works once and for {days} days."
+    },
+    "signup": {
+      "subject": "HexTime: finish signing up",
+      "body": "Someone, hopefully you, asked for a HexTime account for this address.\n\nChoose your password here to finish:\n{link}\n\nThe link works once and for {days} days. If you did not ask for this, ignore this message: no account can be used without it."
+    },
+    "reset": {
+      "subject": "HexTime: new password",
+      "body": "Someone, hopefully you, asked for a new HexTime password.\n\nChoose a new password here:\n{link}\n\nThe link works for {hours} hours. If you did not ask for this, ignore this message: your password stays as it is."
+    },
+    "verify": {
+      "subject": "HexTime: confirm your email address",
+      "body": "Confirm your address here to sign in to HexTime:\n{link}\n\nThe link works for {hours} hours."
+    },
+    "teamInvitation": {
+      "subject": "HexTime: an invitation to the team {team}",
+      "body": "{inviter} invited you to the team {team} in HexTime.\n\nOpen HexTime and it asks whether you want to join:\n{link}"
+    }
+  },
+  "desktop": {
+    "tooNewTitle": "Please update HexTime",
+    "tooNewBody": "Your data was saved by a newer version of HexTime than this one. Install the newest version to carry on. Your data has not been touched.",
+    "startFailedTitle": "HexTime did not start",
+    "startFailedBody": "Your data could not be opened: {error}. If it was being updated, a backup was taken first, in the same folder: {folder}"
+  }
+}

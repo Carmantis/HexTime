@@ -1,0 +1,53 @@
+[project]
+name = "hextime"
+version = "0.1.0"
+description = "Work Time Tracking App"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "sqlalchemy>=2.0.54",
+    "alembic>=1.20.0",
+    "platformdirs>=4.11.11",
+    "tzdata>=2026.4",
+    "reportlab>=5.0.1",
+    "argon2-cffi>=25.1.0",
+]
+
+[project.optional-dependencies]
+# The server image's PostgreSQL driver. Not in the desktop build, which only
+# ever talks to SQLite.
+server = [
+    "psycopg[binary]>=3.3.6",
+]
+desktop = [
+    "pygobject>=3.58.0 ; sys_platform == 'linux'",
+    "pywebview>=6.2.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "httpx>=0.28",
+    "ruff>=0.8",
+    "psycopg[binary]>=3.3.6",
+    "pyinstaller>=6.22.3",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+# Alembic writes these; they are reviewed by hand, not restyled by the linter.
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

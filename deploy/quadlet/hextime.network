@@ -1,0 +1,4 @@
+# The private network the three HexTime containers talk on. Only Caddy
+# publishes ports; HexTime and PostgreSQL are reachable from Caddy alone.
+[Network]
+NetworkName=hextime

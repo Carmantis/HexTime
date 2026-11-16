@@ -1,0 +1,12 @@
+# Nightly backup of the HexTime database (hextime-backup.service).
+[Unit]
+Description=Nightly HexTime database backup
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+RandomizedDelaySec=15min
+# Run at the next start if the server was off at 03:15.
+Persistent=true
+
+[Install]
+WantedBy=timers.target
