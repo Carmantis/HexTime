@@ -99,7 +99,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
-    width: 196px;
+    width: 160px;
     flex-shrink: 0;
     padding: var(--space-2);
     background-color: var(--color-surface);

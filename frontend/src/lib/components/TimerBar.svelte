@@ -396,7 +396,8 @@
 
   /* A phone: the description gets its own line, the rest wraps under it.
      Last in the file, so it wins over the rules above. */
-  @media (max-width: 720px) {
+  /* The column it sits in (App.svelte), so an open sidebar counts too */
+  @container main (max-width: 720px) {
     .bar {
       flex-wrap: wrap;
     }

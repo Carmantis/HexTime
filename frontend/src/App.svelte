@@ -140,6 +140,9 @@
     flex-direction: column;
     flex: 1;
     min-width: 0;
+    /* The timer bar fits itself to this column, not to the window: the
+       sidebar takes room, and HexStickyNote shows HexTime in a narrow panel */
+    container: main / inline-size;
   }
 
   .content {

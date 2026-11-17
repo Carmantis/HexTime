@@ -48,7 +48,7 @@ def create_app(
 
     app = FastAPI(
         title="HexTime",
-        version="0.1.0",
+        version="0.1.1",
         docs_url="/api/docs",
         openapi_url="/api/openapi.json",
         lifespan=lifespan,
