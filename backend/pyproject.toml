@@ -1,6 +1,6 @@
 [project]
 name = "hextime"
-version = "0.1.0"
+version = "0.1.1"
 description = "Work Time Tracking App"
 requires-python = ">=3.13"
 dependencies = [
